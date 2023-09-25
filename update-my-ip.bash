@@ -1,7 +1,8 @@
 #!/bin/bash
 
+source .credentials
 IPADDRESS=`curl checkip.amazonaws.com`
-FILE=./current-ip-address
+FILE=./.current-ip-address
 
 if test -f "$FILE"; then
     echo "$FILE exists."
@@ -9,12 +10,14 @@ if test -f "$FILE"; then
     if [ "$RECORDED_IP_ADDRESS" = "$IPADDRESS" ]; then
         echo "they're the same!"
     else
-    
+        echo "they're not the same, will PATCH with $IPADDRESS"
+        curl -X PATCH \
+            -H "Content-Type: application/json" \
+            -H "Authorization: Bearer $DIGITALOCEAN_TOKEN" \
+            -d "{\"name\":\"$SUBDOMAIN\",\"type\":\"A\", \"data\":\"$IPADDRESS\"}" \
+            "https://api.digitalocean.com/v2/domains/$DOMAIN/records/$RECORD_ID"
     fi
 else 
     touch $FILE
     echo $IPADDRESS > $FILE
 fi
-
-
-
