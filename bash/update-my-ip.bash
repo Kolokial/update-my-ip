@@ -1,8 +1,8 @@
 #!/bin/bash
 
-source `pwd`/.credentials
+source `dirname "$0"`/.credentials
 IPADDRESS=`curl checkip.amazonaws.com`
-FILE=`pwd`/.current-ip-address
+FILE=`dirname "$0"`/.current-ip-address
 
 if test -f "$FILE"; then
     echo "$FILE exists."
