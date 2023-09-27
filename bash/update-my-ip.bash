@@ -14,7 +14,7 @@ if test -f "$FILE"; then
         curl -X PATCH \
             -H "Content-Type: application/json" \
             -H "Authorization: Bearer $DIGITALOCEAN_TOKEN" \
-            -d "{\"name\":\"$SUBDOMAIN\",\"type\":\"A\", \"data\":\"$IPADDRESS\"}" \
+            -d "{\"type\":\"A\", \"data\":\"$IPADDRESS\"}" \
             "https://api.digitalocean.com/v2/domains/$DOMAIN/records/$RECORD_ID"
     fi
 else 
