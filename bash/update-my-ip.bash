@@ -21,4 +21,6 @@ else
         -H "Authorization: Bearer $DIGITALOCEAN_TOKEN" \
         -d "{\"type\":\"A\", \"data\":\"$IPADDRESS\"}" \
         "https://api.digitalocean.com/v2/domains/$DOMAIN/records/$RECORD_ID"
+
+    echo $IPADDRESS > $FILE        
 fi
